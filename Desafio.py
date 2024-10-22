@@ -15,7 +15,22 @@ def menu():
     return input(textwrap.dedent(menu))
 
 
-def depositar(saldo, valor, extrato, /):
+def depositar(contas, usuarios, numero_conta, valor, saldo, extrato):
+    conta = next(
+        (conta for conta in contas if conta["numero_conta"] == numero_conta), None
+    )
+    if conta is None:
+        print("\n@@@ Conta para depósito inexistente. @@@")
+        return saldo, extrato
+
+    usuario = next(
+        (usuario for usuario in usuarios if usuario["cpf"] == conta["usuario"]["cpf"]),
+        None,
+    )
+    if usuario is None:
+        print("\n@@@ Usuário inexistente. @@@")
+        return saldo, extrato
+
     if valor > 0:
         saldo += valor
         extrato += f"Depósito:\tR$ {valor:.2f}\n"
@@ -127,9 +142,12 @@ def main():
         opcao = menu()
 
         if opcao == "d":
+            numero_conta = int(input("Informe o número da conta para depósito: "))
             valor = float(input("Informe o valor do depósito: "))
 
-            saldo, extrato = depositar(saldo, valor, extrato)
+            saldo, extrato = depositar(
+                contas, usuarios, numero_conta, valor, saldo, extrato
+            )
 
         elif opcao == "s":
             valor = float(input("Informe o valor do saque: "))
