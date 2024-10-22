@@ -1,0 +1,9 @@
+Desafio.py >>> bugs, changes and new features 
+
+- deposito >>> should not be possible without account nor user
+- saque >>> should not be possible without account nor user
+- listar contas >>> if none there must be a message
+- listar usuarios >>> new function, same style as listar contas
+- sacar >>> verifying limit of 3 not working right, must be verified
+- sacar >>> verify limit after entering user and before entering value (logical business workflow)
+
